@@ -8,6 +8,8 @@ import { api } from "~/utils/api";
 
 const Home: NextPage = () => {
   const hello = api.example.hello.useQuery({ text: "from tRPC" });
+  const hello2 = api.example.getAll.useQuery();
+  console.log(hello2);
 
   return (
     <>
@@ -61,16 +63,17 @@ export default Home;
 
 const AuthShowcase: React.FC = () => {
   const { data: sessionData } = useSession();
+  console.log(sessionData);
 
   const { data: secretMessage } = api.example.getSecretMessage.useQuery(
     undefined, // no input
-    { enabled: sessionData?.user !== undefined },
+    { enabled: sessionData?.user !== undefined }
   );
 
   return (
     <div className={styles.authContainer}>
       <p className={styles.showcaseText}>
-        {sessionData && <span>Logged in as {sessionData.user?.name}</span>}
+        {sessionData && <span>Logged in as {sessionData.user?.email}</span>}
         {secretMessage && <span> - {secretMessage}</span>}
       </p>
       <button

@@ -64,3 +64,18 @@ model VerificationToken {
 
     @@unique([identifier, token])
 }
+
+model Car {
+    id             String   @id @default(cuid())
+    createdAt      DateTime @default(now())
+    updatedAt      DateTime @default(now())
+    make           String
+    model          String
+    engine         String
+    year           Int
+    numberOfDoors  Int
+    engineCapacity Float
+    bodyType       String
+
+    @@unique([make, model])
+}
