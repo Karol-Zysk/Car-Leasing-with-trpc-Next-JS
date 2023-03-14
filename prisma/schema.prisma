@@ -76,6 +76,8 @@ model Car {
     numberOfDoors  Int
     engineCapacity Float
     bodyType       String
+    isLeased       Boolean  @default(false)
+    leasedBy       String?
 
     @@unique([make, model])
 }

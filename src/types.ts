@@ -1,20 +1,16 @@
-import z from "zod";
+import type { inferRouterOutputs } from "@trpc/server";
+import { z } from "zod";
+import type { AppRouter } from "./server/api/root";
 
-export const createPostSchema = z.object({
-  title: z.string().max(256, "Max title length is 356"),
-  body: z.string().min(10),
-});
+type RouterOutput = inferRouterOutputs<AppRouter>;
+type allCarsOutput = RouterOutput["car"]["getAllCars"];
 
-export type CreatePostInput = z.TypeOf<typeof createPostSchema>;
+export type Car = allCarsOutput[number];
 
-export const getSinglePostSchema = z.object({
-  postId: z.string().uuid(),
-});
-
-export const createCarSchema = z.object({
+export const createCarInput = z.object({
   make: z.string().max(24, "Max make length is 24"),
   model: z.string().max(24, "Max model length is 24"),
-  engine: z.enum(["Diesel", "Petrol", "Electric", "Hybrid"]),
+  engine: z.string().max(24, "Max model length is 24"),
   year: z
     .number()
     .min(1900, "Year should be greater than or equal to 1900")
@@ -29,7 +25,5 @@ export const createCarSchema = z.object({
   engineCapacity: z
     .number()
     .min(0, "Engine capacity should be greater than or equal to 0"),
-  bodyType: z.enum(["Sedan", "Hatchback", "SUV", "Coupe"]),
+  bodyType: z.string().max(24, "Max model length is 24"),
 });
-
-export type CreateCarInput = z.TypeOf<typeof createCarSchema>;
