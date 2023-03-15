@@ -42,9 +42,8 @@ export const authOptions: NextAuthOptions = {
     session({ session, user }) {
       if (session.user) {
         session.user.id = user.id;
-        if (typeof user.isAdmin === "boolean") {
-          session.user.isAdmin = user.isAdmin;
-        }
+        if (user.isAdmin) session.user.isAdmin = user.isAdmin;
+
         // session.user.role = user.role; <-- put other properties on the session here
       }
       return session;
