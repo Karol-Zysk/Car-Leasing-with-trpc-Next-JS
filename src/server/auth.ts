@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+
 import { type GetServerSidePropsContext } from "next";
 import {
   getServerSession,
@@ -44,7 +46,7 @@ export const authOptions: NextAuthOptions = {
         session.user.id = user.id;
 
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        //@ts-ignore // @typescript-eslint/no-unsafe-assignment
+        //@ts-ignore
         if (user?.isAdmin) session.user.isAdmin = user.isAdmin;
 
         // session.user.role = user.role; <-- put other properties on the session here
