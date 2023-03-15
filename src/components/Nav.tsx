@@ -1,14 +1,17 @@
-import { Fragment } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import logo from "../assets/images/logo.png";
+import { signIn, signOut, useSession } from "next-auth/react";
+import Link from "next/link";
+import { useRouter } from "next/router";
 
 const navigation = [
-  { name: "Dashboard", href: "#", current: true },
-  { name: "Team", href: "#", current: false },
-  { name: "Projects", href: "#", current: false },
-  { name: "Calendar", href: "#", current: false },
+  { name: "Home", href: "/", current: false },
+  { name: "Find Car", href: "/cars", current: true },
+  { name: "Contact Us", href: "/contact", current: false },
+  { name: "More Info", href: "/info", current: false },
 ];
 
 function classNames(...classes: string[]) {
@@ -16,8 +19,19 @@ function classNames(...classes: string[]) {
 }
 
 export default function Nav() {
+  const router = useRouter();
+
+  const { data: sessionData } = useSession();
+
+  const handleSignOut = () => {
+    void signOut();
+  };
+
+  const handleSignIn = () => {
+    void signIn();
+  };
   return (
-    <Disclosure as="nav" className="bg-gray-800">
+    <Disclosure as="nav" className="bg-transparent">
       {({ open }) => (
         <>
           <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
@@ -57,7 +71,7 @@ export default function Nav() {
                         key={item.name}
                         href={item.href}
                         className={classNames(
-                          item.current
+                          item.href === router.pathname
                             ? "bg-gray-900 text-white"
                             : "text-gray-300 hover:bg-gray-700 hover:text-white",
                           "rounded-md px-3 py-2 text-sm font-medium"
@@ -88,7 +102,11 @@ export default function Nav() {
                         width={100}
                         height={100}
                         className="h-8 w-8 rounded-full"
-                        src={logo}
+                        src={
+                          sessionData?.user.image
+                            ? sessionData?.user?.image
+                            : logo
+                        }
                         alt=""
                       />
                     </Menu.Button>
@@ -131,17 +149,34 @@ export default function Nav() {
                       </Menu.Item>
                       <Menu.Item>
                         {({ active }) => (
-                          <a
-                            href="#"
+                          <Link
+                            href="/"
+                            onClick={handleSignOut}
                             className={classNames(
                               active ? "bg-gray-100" : "",
                               "block px-4 py-2 text-sm text-gray-700"
                             )}
                           >
                             Sign out
-                          </a>
+                          </Link>
                         )}
                       </Menu.Item>
+                      {sessionData?.user.isAdmin && (
+                        <Menu.Item>
+                          {({ active }) => (
+                            <Link
+                              href="/"
+                              onClick={handleSignOut}
+                              className={classNames(
+                                active ? "bg-gray-100" : "",
+                                "block px-4 py-2 text-sm text-gray-700"
+                              )}
+                            >
+                              Sign out
+                            </Link>
+                          )}
+                        </Menu.Item>
+                      )}
                     </Menu.Items>
                   </Transition>
                 </Menu>

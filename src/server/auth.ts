@@ -20,6 +20,7 @@ declare module "next-auth" {
   interface Session extends DefaultSession {
     user: {
       id: string;
+      isAdmin: boolean;
       // ...other properties
       // role: UserRole;
     } & DefaultSession["user"];
@@ -41,6 +42,9 @@ export const authOptions: NextAuthOptions = {
     session({ session, user }) {
       if (session.user) {
         session.user.id = user.id;
+        if (typeof user.isAdmin === "boolean") {
+          session.user.isAdmin = user.isAdmin;
+        }
         // session.user.role = user.role; <-- put other properties on the session here
       }
       return session;

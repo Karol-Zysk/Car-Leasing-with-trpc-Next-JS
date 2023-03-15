@@ -36,6 +36,7 @@ function AddCar() {
               const result = createCarInput.parse(values);
               console.log(result);
             } catch (error: any) {
+              // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-return
               return error.formErrors.fieldErrors;
             }
           }}

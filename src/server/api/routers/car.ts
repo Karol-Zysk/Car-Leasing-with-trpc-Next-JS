@@ -1,11 +1,8 @@
 import { z } from "zod";
 
-import {
-  createTRPCRouter,
-  publicProcedure,
-  protectedProcedure,
-} from "~/server/api/trpc";
+import { createTRPCRouter, protectedProcedure } from "~/server/api/trpc";
 import { createCarInput } from "~/types";
+import { adminProcedure } from "../adminProcedure";
 
 export const carRouter = createTRPCRouter({
   getAllCars: protectedProcedure.query(async ({ ctx }) => {
@@ -14,7 +11,7 @@ export const carRouter = createTRPCRouter({
     return cars;
   }),
 
-  addCar: protectedProcedure
+  addCar: adminProcedure
     .input(createCarInput)
     .mutation(
       async ({
@@ -27,7 +24,7 @@ export const carRouter = createTRPCRouter({
           model,
           numberOfDoors,
           year,
-          photos
+          photos,
         },
       }) => {
         return ctx.prisma.car.create({
@@ -39,7 +36,7 @@ export const carRouter = createTRPCRouter({
             model,
             numberOfDoors,
             year,
-            photos
+            photos,
           },
         });
       }

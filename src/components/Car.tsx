@@ -13,9 +13,21 @@ export function Car({ car }: CarProps) {
 
   return (
     <div className="flex  flex-col w-full gap-2 items-center justify-between">
-      <div className="flex flex-col w-full gap-2 items-center">
-        <div className="flex justify-between  w-full ">
-          <div className="w-full  flex justify-between">
+      <div className="card w-96 glass ">
+        <div className="flex justify-between  w-full "></div>
+        <figure className="w-full mt-2 flex justify-center items-center content-center  relative ">
+          {photos && (
+            <Image
+              width={400}
+              height={300}
+              className="w-2/3 h-auto"
+              src={`/images/${photos}.png`}
+              alt="car photo"
+            />
+          )}
+        </figure>
+        <div className="card-body">
+          <div className="w-full   flex justify-between">
             <div>
               <p>Make: {car.make}</p>
               <p>Model: {car.model}</p>
@@ -25,15 +37,14 @@ export function Car({ car }: CarProps) {
               <p>{car.year}</p>
             </div>
           </div>
+          {/* <h2 className="card-title">Life hack</h2>
+          <p>How to park your car at your garage?</p> */}
+          <div className="card-actions justify-end">
+            <button className="btn btn-primary">Learn now!</button>
+          </div>
         </div>
-        {photos && (
-          <Image
-            width={100}
-            height={100}
-            src={`/images/${photos}.png`}
-            alt="car photo"
-          />
-        )}
+      </div>
+      <div className="flex flex-col w-full gap-2 items-center">
         <p className="mt-2">price: 270.000zł</p>
       </div>
     </div>
