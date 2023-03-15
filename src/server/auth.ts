@@ -42,8 +42,9 @@ export const authOptions: NextAuthOptions = {
     session({ session, user }) {
       if (session.user) {
         session.user.id = user.id;
+
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        //@ts-ignore
+        //@ts-ignore // @typescript-eslint/no-unsafe-assignment
         if (user?.isAdmin) session.user.isAdmin = user.isAdmin;
 
         // session.user.role = user.role; <-- put other properties on the session here
