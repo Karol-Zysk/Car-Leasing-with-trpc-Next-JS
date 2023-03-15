@@ -10,30 +10,8 @@ import { createCarInput } from "~/types";
 export const carRouter = createTRPCRouter({
   getAllCars: protectedProcedure.query(async ({ ctx }) => {
     const cars = await ctx.prisma.car.findMany({});
-    console.log(cars);
 
-    return [
-      {
-        id: 1,
-        make: "VolksWagen",
-        model: "Golf",
-        engine: "Diesel",
-        year: 1999,
-        numberOfDoors: 4,
-        engineCapacity: 4.0,
-        bodyType: "Coupe",
-      },
-      {
-        id: 2,
-        make: "VolksWagen",
-        model: "Golf",
-        engine: "Diesel",
-        year: 1999,
-        numberOfDoors: 4,
-        engineCapacity: 4.0,
-        bodyType: "Coupe",
-      },
-    ];
+    return cars;
   }),
 
   addCar: protectedProcedure
@@ -49,6 +27,7 @@ export const carRouter = createTRPCRouter({
           model,
           numberOfDoors,
           year,
+          photos
         },
       }) => {
         return ctx.prisma.car.create({
@@ -60,6 +39,7 @@ export const carRouter = createTRPCRouter({
             model,
             numberOfDoors,
             year,
+            photos
           },
         });
       }

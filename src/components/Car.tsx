@@ -1,35 +1,41 @@
+import Image from "next/image";
 import type { Car } from "../types";
 import { api } from "../utils/api";
+import car1 from "../assets/images/car1.png";
 
 type CarProps = {
   car: Car;
 };
 
 export function Car({ car }: CarProps) {
+  const { photos } = car;
+  console.log(photos);
+
   return (
-    <div className="flex gap-2 items-center justify-between">
-      <div className="flex gap-2 items-center">
-        <input
-          className="cursor-pointer w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800"
-          type="checkbox"
-          name="done"
-          id={`id`}
-          // checked={done}
-          // onChange={(e) => {
-          //   doneMutation({ id, done: e.target.checked });
-          // }}
-        />
-        <p>{car.make}</p>
-        <p>{car.model}</p>
+    <div className="flex  flex-col w-full gap-2 items-center justify-between">
+      <div className="flex flex-col w-full gap-2 items-center">
+        <div className="flex justify-between  w-full ">
+          <div className="w-full  flex justify-between">
+            <div>
+              <p>Make: {car.make}</p>
+              <p>Model: {car.model}</p>
+            </div>
+            <div className="flex">
+              {" "}
+              <p>{car.year}</p>
+            </div>
+          </div>
+        </div>
+        {photos && (
+          <Image
+            width={100}
+            height={100}
+            src={`/images/${photos}.png`}
+            alt="car photo"
+          />
+        )}
+        <p className="mt-2">price: 270.000zł</p>
       </div>
-      <button
-        className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-2 py-1 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-        // onClick={() => {
-        //   deleteMutation(id);
-        // }}
-      >
-        Delete
-      </button>
     </div>
   );
 }

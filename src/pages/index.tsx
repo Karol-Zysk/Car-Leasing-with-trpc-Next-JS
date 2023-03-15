@@ -6,6 +6,7 @@ import AddCar from "../components/AddCar";
 
 function Home() {
   const { data: sessionData } = useSession();
+  console.log(sessionData);
 
   const handleSignOut = () => {
     void signOut();
@@ -26,9 +27,9 @@ function Home() {
         <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#0f1235] to-[#090920]">
           <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16 ">
             {sessionData && (
-              <div className="grid grid-cols-1 gap-4 md:gap-8">
+              <div className="grid grid-cols-1 w-1/4 gap-4 md:gap-8">
                 <div className="flex flex-col gap-4 rounded-xl bg-white/10 p-4 text-white">
-                  <h3 className="text-xl font-bold">Cars</h3>
+                  <h3 className="text-xl font-bold">Available Cars</h3>
                   <Cars />
                   <AddCar />
                 </div>

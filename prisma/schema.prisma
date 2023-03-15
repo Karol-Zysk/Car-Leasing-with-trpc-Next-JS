@@ -78,6 +78,5 @@ model Car {
     bodyType       String
     isLeased       Boolean  @default(false)
     leasedBy       String?
-
-    @@unique([make, model])
+    photos         String   @default("car1.png")
 }
