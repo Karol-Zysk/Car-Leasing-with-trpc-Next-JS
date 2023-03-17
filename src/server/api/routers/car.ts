@@ -2,10 +2,10 @@ import { z } from "zod";
 
 import { createTRPCRouter, protectedProcedure } from "~/server/api/trpc";
 import { createCarInput } from "~/types";
-import { adminProcedure } from "../adminProcedure";
+import { adminProcedure, publicProcedure } from "../adminProcedure";
 
 export const carRouter = createTRPCRouter({
-  getAllCars: protectedProcedure.query(async ({ ctx }) => {
+  getAllCars: publicProcedure.query(async ({ ctx }) => {
     const cars = await ctx.prisma.car.findMany({});
 
     return cars;
@@ -32,8 +32,8 @@ export const carRouter = createTRPCRouter({
             bodyType,
             engine,
             engineCapacity,
-            make,
-            model,
+            make: make.toUpperCase(),
+            model: model.charAt(0).toUpperCase() + model.slice(1),
             numberOfDoors,
             year,
             photos,

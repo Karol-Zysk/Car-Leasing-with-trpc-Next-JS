@@ -12,9 +12,8 @@ export function Car({ car }: CarProps) {
   console.log(photos);
 
   return (
-    <div className="flex  flex-col w-full gap-2 items-center justify-between">
-      <div className="card w-96 glass ">
-        <div className="flex justify-between  w-full "></div>
+    <div className="flex  flex-col w-full  gap-2 items-center justify-between">
+      <div className="card w-96 glass glass:hover shadow-md ">
         <figure className="w-full mt-2 flex justify-center items-center content-center  relative ">
           {photos && (
             <Image
@@ -43,9 +42,6 @@ export function Car({ car }: CarProps) {
             <button className="btn btn-primary">Learn now!</button>
           </div>
         </div>
-      </div>
-      <div className="flex flex-col w-full gap-2 items-center">
-        <p className="mt-2">price: 270.000zł</p>
       </div>
     </div>
   );

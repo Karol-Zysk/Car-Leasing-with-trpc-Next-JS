@@ -9,7 +9,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
         <title>My Next.js App</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className="bg-gradient-to-r from-[#ffffff] to-[#d9efff]">
+      <div className="antialiased bg-[#767676] ">
         <Nav />
 
         <main className="p-8 flex min-h-screen flex-col items-center justify-center ">

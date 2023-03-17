@@ -13,7 +13,7 @@ export default function Todos() {
         ? cars.map((car) => {
             return <Car key={car.id} car={car} />;
           })
-        : "Create your first todo..."}
+        : "No cars yet..."}
     </>
   );
 }
